@@ -97,9 +97,6 @@ describe('AuthService', () => {
             });
             bcrypt.compare.mockResolvedValue(true);
             jwt.sign.mockReturnValue('jwt-token')
-
-
-
             const result = await authservice.login({
                 email: 'a@test.com'
                 ,
@@ -113,7 +110,6 @@ describe('AuthService', () => {
                 user: { id: 'u1', email: 'a@test.com' },
                 token: 'jwt-token',
             })
-
         })
 
         // LOGIN CASES FOR CHECKING THE CREDENTIALS
