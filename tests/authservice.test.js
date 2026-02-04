@@ -73,25 +73,17 @@ describe('AuthService', () => {
         test('User is already exists', async () => {
 
             userRepo.findByEmail.mockResolvedValue({
-                // id: '1',
+                id: '1',
                 email: 'a@test.com'
             })
-
-
-
             await expect(authservice.register({ email: 'a@test.com', password: 'x' }))
                 .rejects.toMatchObject({
                     message: 'Email already exists',
                     status: 409,
                 })
-
             expect(userRepo.create).not.toHaveBeenCalledWith()
             expect(jwt.sign).not.toHaveBeenCalledWith()
-
         })
-
-
-
     })
 
 
