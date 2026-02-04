@@ -124,12 +124,46 @@ describe('AuthService', () => {
 
         })
 
-        // 
-        // test('login',async()=>{
+        //
+
+        test('login fail-> user not found', async () => {
+
+            userRepo.findByEmail.mockResolvedValue(null)
+            await expect(
+                authservice.login({ email: 'x@test.com', password: 'any' }))
+                .rejects.toMatchObject({
+                    message: "Invalid credentials",
+                    status: 401
+                })
+
+
+            expect(bcrypt.compare).not.toHaveBeenCalled();
+            expect(jwt.sign).not.toHaveBeenCalled()
+
+
+        })
 
 
 
-        // })
+        test('login fail-> password not found', async () => {
+
+            userRepo.findByEmail.mockResolvedValue({
+                id: 'u1',
+                email: 'a@test.com',
+                passwordHash: "hashed",
+            })
+            bcrypt.compare.mockResolvedValue(false)
+            await expect(
+                authservice.login({ email: 'a@test.com', password: 'wrong' })
+            ).rejects.toMatchObject({
+                message: 'Invalid credentials',
+                status: 401
+            })
+            expect(jwt.sign).not.toHaveBeenCalled();
+        })
+
+
+
 
 
 
@@ -141,6 +175,9 @@ describe('AuthService', () => {
                 })
             expect(userRepo.findByEmail).not.toHaveBeenCalled()
         })
+
+
+
 
     })
 
