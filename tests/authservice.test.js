@@ -86,7 +86,7 @@ describe('AuthService', () => {
                 })
 
             expect(userRepo.create).not.toHaveBeenCalledWith()
-            // expect(jwt.sign).not.toHaveBeenCalledWith()
+            expect(jwt.sign).not.toHaveBeenCalledWith()
 
         })
 
@@ -124,7 +124,7 @@ describe('AuthService', () => {
 
         })
 
-        //
+        // LOGIN CASES FOR CHECKING THE CREDENTIALS
 
         test('login fail-> user not found', async () => {
 
@@ -142,7 +142,6 @@ describe('AuthService', () => {
 
 
         })
-
 
 
         test('login fail-> password not found', async () => {
@@ -163,10 +162,6 @@ describe('AuthService', () => {
         })
 
 
-
-
-
-
         test('invalid email and password', async () => {
             await expect(authservice.login({ email: '', password: '' }))
                 .rejects.toMatchObject({
@@ -175,10 +170,6 @@ describe('AuthService', () => {
                 })
             expect(userRepo.findByEmail).not.toHaveBeenCalled()
         })
-
-
-
-
     })
 
 });
