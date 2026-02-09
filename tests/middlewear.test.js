@@ -1,0 +1,1 @@
+const makeAuthMiddleware = require('./middlewear.js')
